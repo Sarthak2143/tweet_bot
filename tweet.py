@@ -1,7 +1,13 @@
 import json
 import os
-
+import sys
 from requests_oauthlib import OAuth1Session
+
+
+# read text from sys
+text = sys.argv[1]
+if len(text) > 280:
+    print("character limit exceeded, please keep it concise!")
 
 with open("secrets.json", "r") as j:
     secrets = json.load(j)
@@ -10,7 +16,7 @@ consumer_key = secrets["consumer_key"]
 consumer_secret = secrets["consumer_secret"]
 
 #this text will be posted
-payload = {"text": "Hello world!"}
+payload = {"text": text}
 
 def load_tokens():
     if os.path.exists("tokens.json"):
